@@ -1,0 +1,74 @@
+<head>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+</head>
+
+  <h1 class="text-7xl font-bold underline min-[320px]:text-sky-400  min-[320px]:text-5xl">
+    Hello world!
+  </h1>
+  
+  <div id="map" class="h-full">
+  5°42'16.8"N 0°01'28.3"W
+  </div>
+<script>
+  var map = L.map('map').setView([5.7047, -0.0245], 13);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 30
+}).addTo(map);
+	//this is done to add marker to the map usually to add a mark to shw a location
+	var marker = L.marker([5.7047, -0.0245]).addTo(map);
+	//this line adds the circle which shows a region using 
+	var circle = L.circle([5.7047, -0.0245], {
+   // color: 'blue',
+    fillColor: '#0074CD',
+    fillOpacity: 0.5,
+    radius: 100
+}).addTo(map);
+
+//the creates a shape around a group of locations
+var polygon = L.polygon([
+    [51.509, -0.08],
+    [51.503, -0.06],
+    [51.51, -0.047]
+], {
+    color: 'red',
+    fillColor: '#ff0000',
+    fillOpacity: 0.5,
+    radius: 100
+}).addTo(map);
+
+// use ".bindPopup" to add 
+	polygon.bindPopup("trial for polygon pop up ")
+
+//for a popup that opens when the map is loaded
+//	var popup = L.popup()
+//    .setLatLng([51.513, -0.09])
+//    .setContent("I am a standalone popup.")
+//    .openOn(map);
+
+//show event 	
+//function onMapClick(e) {
+ //   alert("You clicked the map at " + e.latlng);
+//}
+
+//map.on('click', onMapClick);
+
+//show event in a pop up
+var popup = L.popup();
+
+function onMapClick(e) {
+    popup
+        .setLatLng(e.latlng)
+        .setContent("You clicked the map at " + e.latlng.toString())
+        .openOn(map);
+}
+
+map.on('click', onMapClick);
+
+</script>
